@@ -29,7 +29,7 @@ void DMXLib::DMXSerialWriter::write() { // inside ISR
     }
 
     this->state_++;
-    if(this->state_ > this->length_) {
+    if(this->state_ > this->channels_) {
       this->state_ = 0;
       break;
     }
