@@ -6,12 +6,12 @@
 enum {IDLE, BREAK, START_BIT, LISTEN};
 
 void DMXLib::DMXSerialReader::start() {
-  //this->serial_->begin(250000);
   this->state_ = IDLE;
+  this->serial_->begin(250000);
   this->running_ = 1;
 }
 
-void DMXLib::DMXSerialReader::read() { // inside ISR(USART0_RX_vect)
+void DMXLib::DMXSerialReader::read() { // inside ISR(USART_RX_vect)
   if(!this->running_) return;
   static uint16_t count;
   uint8_t USART_state = UCSR0A;
@@ -29,20 +29,17 @@ void DMXLib::DMXSerialReader::read() { // inside ISR(USART0_RX_vect)
     }
   } else if(state == START_BIT) {
     if(--count == 0) {
-      count = 1;
-      this->dmx_[0] = dmx_byte;
       this->state_ = LISTEN;
     }
   } else if(state == LISTEN) {
     this->dmx_[count++] = dmx_byte;
     if(count >= this->length_) {
-      this->listener_(this->dmx_);
       this->state_ = IDLE;
+      this->listener_(this->dmx_);
     }
   }
 }
 
 void DMXLib::DMXSerialReader::stop() {
   this->running_ = 0;
-  //this->serial_->end();
 }

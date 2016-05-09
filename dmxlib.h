@@ -39,6 +39,7 @@ namespace DMXLib {
     bool isRunning();
 
   protected:
+    uint8_t *dmx_;
     uint16_t start_;
     uint16_t length_;
     void (*listener_)(uint8_t *);
@@ -68,7 +69,6 @@ namespace DMXLib {
     void stop();
   private:
     uint8_t state_;
-    uint8_t *dmx_;
   };
 
   // pwm reader
