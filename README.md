@@ -46,9 +46,58 @@ See `examples/dmxlib-write/dmxlib-write.ino` for a working example
 coming soon
 
 ### DMXLib::DMXSerialWriter
-coming soon
+
+**Note:** Serial Reader/Writer require a slightly modified Arduino-Source,
+where `HardwareSerial.cpp`, `HardwareSerial0.cpp`, `HardwareSerial1.cpp`,
+`HardwareSerial2.cpp` and/or `HardwareSerial3.cpp`, where the
+`ISR(USART0_UDRE_vect)`-Block is commented out (i.e. [those](https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp#L52L65) when using
+`UART0_UDRE_vect/UART_UDRE_vect/USART0_UDRE_vect/USART_UDRE_vect`)
+
+```c++
+// always include the header
+#include "dmxlib.h"
+
+// create an instance, the constructor does not take any parameters
+DMXLib::DMXSerialWriter writer;
+
+// set channels to write, for this example we use 512 for DMX-512
+writer.setChannels(512);
+
+// get channels
+uint16_t channels = writer.getChannels();
+
+// set an output Serial (requires a HardwareSerial pointer)
+writer.use(&Serial);
+
+// check if the writer has started
+bool running = writer.isRunning();
+
+// start writer loop
+writer.start();
+
+// stop writer loop
+writer.stop();
+
+// set a channel to a value
+// channels are 0 to channels-1
+// values are 0 to 255
+writer.set(1, 255);
+
+// setup the writer loop
+ISR(USART0_UDRE_vect) {
+  // writes the current dmx values to the output
+  writer.write();
+}
+```
+Example coming soon..
 
 ### DMXLib::DMXSerialReader
+
+**Note:** Serial Reader/Writer require a slightly modified Arduino-Source,
+where `HardwareSerial.cpp`, `HardwareSerial0.cpp`, `HardwareSerial1.cpp`,
+`HardwareSerial2.cpp` and/or `HardwareSerial3.cpp`, where the
+`ISR(USART_RX_vect)`-Block is commented out (i.e. [those](https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp#L39L50) when using `USART_RX_vect/USART0_RX_vect/USART_RXC_vect`)
+
 ```c++
 // always include the header
 #include "dmxlib.h"
@@ -89,7 +138,7 @@ reader.stop();
 reader.use(&Serial);
 
 // read from serial port
-// use it inside `ISR(USART0_RX_vect)`, `void loop()` or `void serialEvent()`
+// use it inside `ISR(USART_RX_vect)
 reader.read();
 ```
 See `examples/dmxlib-read/dmxlib-read.ino` for a working example

@@ -10,7 +10,7 @@ void DMXLib::DMXSerialWriter::stop() {
   this->running_ = 0;
 }
 
-void DMXLib::DMXSerialWriter::write() { // inside ISR
+void DMXLib::DMXSerialWriter::write() { // inside ISR(USART_RX_vect)
   if(!this->running_) return;
 
   while(1) {
