@@ -77,6 +77,9 @@ namespace DMXLib {
     void read();
     void start();
     void stop();
+  private:
+    uint8_t state_;
+    unsigned long idlestart_;
   };
 
   // serial writer

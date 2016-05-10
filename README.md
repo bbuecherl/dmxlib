@@ -43,9 +43,11 @@ ISR_FUNCTION() {
 ```
 See `examples/dmxlib-write/dmxlib-write.ino` for a working example
 ### DMXLib::DMXPWMReader
-coming soon
+*currently untested*
+documentation comming...
 
 ### DMXLib::DMXSerialWriter
+*currently untested*
 
 **Note:** Serial Reader/Writer require a slightly modified Arduino-Source,
 where `HardwareSerial.cpp`, `HardwareSerial0.cpp`, `HardwareSerial1.cpp`,
