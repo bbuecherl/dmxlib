@@ -49,7 +49,7 @@ coming soon
 
 **Note:** Serial Reader/Writer require a slightly modified Arduino-Source,
 where `HardwareSerial.cpp`, `HardwareSerial0.cpp`, `HardwareSerial1.cpp`,
-`HardwareSerial2.cpp` and/or `HardwareSerial3.cpp`, where the
+`HardwareSerial2.cpp` and/or `HardwareSerial3.cpp` are modified, so that the
 `ISR(USART0_UDRE_vect)`-Block is commented out (i.e. [those](https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp#L52L65) when using
 `UART0_UDRE_vect/UART_UDRE_vect/USART0_UDRE_vect/USART_UDRE_vect`)
 
@@ -95,7 +95,7 @@ Example coming soon..
 
 **Note:** Serial Reader/Writer require a slightly modified Arduino-Source,
 where `HardwareSerial.cpp`, `HardwareSerial0.cpp`, `HardwareSerial1.cpp`,
-`HardwareSerial2.cpp` and/or `HardwareSerial3.cpp`, where the
+`HardwareSerial2.cpp` and/or `HardwareSerial3.cpp` are modified, so that the
 `ISR(USART_RX_vect)`-Block is commented out (i.e. [those](https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/HardwareSerial0.cpp#L39L50) when using `USART_RX_vect/USART0_RX_vect/USART_RXC_vect`)
 
 ```c++
